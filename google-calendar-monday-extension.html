@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="width=device-width,initial-scale=1" name="viewport">
+  <meta content="description" name="description">
+  <meta name="google" content="notranslate" />
+  <meta content="A sports betting tool allowing users to take advantage of more beneficial bets not publicly offered." name="author">
+
+   <!-- OG tags -->
+   <meta property="og:title" content="Eric Detjen" />
+   <meta property="og:image" href="./assets/images/profil.jpg" />
+   <meta property="og:description" content= "Showcases my projects & resume. Built with Bootstrap HTML, JS, & CSS. Hosted on AWS S3."/>
+  
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.0/themes/prism.min.css"/>
+
+  <!-- Disable tap highlight on IE -->
+  <meta name="msapplication-tap-highlight" content="no">
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-icon-180x180.png">
+  <link href="./assets/favicon.ico" rel="icon">
+  <style>
+    pre {
+      white-space: normal;
+       word-wrap: break-word;
+    }
+ </style>
+
+  <title>Eric Detjen:Google Calendar Monday.com Extension</title> 
+  <link rel="icon" href="./assets/images/DETJEN.png">
+
+
+<link href="./main.3f6952e4.css" rel="stylesheet"></head>
+
+<body class="">
+<div id="site-border-left"></div>
+<div id="site-border-right"></div>
+<div id="site-border-top"></div>
+<div id="site-border-bottom"></div>
+<!-- Add your content of header -->
+<header>
+  <nav class="navbar  navbar-fixed-top navbar-default">
+    <div class="container">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+
+      <div class="collapse navbar-collapse" id="navbar-collapse">
+        <ul class="nav navbar-nav ">
+          <li><a href="./index.html" title="">Home</a></li>
+          <li><a href="./Resume.html" title="">Resume</a></li>
+          <li><a href="./Projects.html" title="">Projects</a></li>
+          <li><a href="./about.html" title="">About me</a></li>
+        </ul>
+      </div> 
+    </div>
+  </nav>
+</header>
+<div class="section-container">
+  <div class="container">
+    <div class="row" style="padding: inherit;">
+      <div class="col-xs-12"style="padding-top:100px">
+        <div class="card-container">
+          <div class="text-center" >
+            <h1 class="h2">Google Calendar Monday.com Extension
+            </h1>
+            <h4 class="h4">Creator: Eric Detjen</h1>
+            </div>
+        </div>
+      </div>
+
+
+      <div class="col-md-8 col-md-offset-2 section-container-spacer">
+        <div class="row">
+          
+          <p>This app is a part of the monday.com app system which allows devs to read and write data from users monday.com boards into new formats. My app allowed our clients to view their own and their co-worker's Gsuite-Google-Calendar data and schedule new meetings right on their existing boards. 
+            </p>
+          <div class="image1" style="text-align: center; padding-bottom: 10px;">
+            <img src="./assets/images/Monday board.png" class="img-responsive" alt="" >
+          </div>
+          <p>As can be seen, the UI was made to resemble the original monday.com UI as close as possible. Monday provided a design guide for it's devs, so using that with react.js we created a very similar look but with the features we needed. 
+            <br><br>
+            To feed the data into the react app, I utilized the monday.com api which is in graphQL format. The code can be seen here:
+                                  <pre><code class="language-javascript">
+    import mondaySdk from 'monday-sdk-js';
+    import MondayUtility from './MondayUtility';
+    
+    const mondayObj = mondaySdk();
+    
+    let Monday = {
+      groupsObj: {},
+      filterText: '',
+      OurServerAPIKEY: "YXNkZmdoamtscG9pdXl0cmV3cTEyNDU4enhjdjk4NzE",
+      usersObj: {},
+      meetinglength: 30,
+      initiated: 0,
+      allUsers: {},
+      board_items: {},
+      authUsers: {},
+      personColumnName: "Person",
+      dateColumnName: "Date",
+      columnNames: {},
+      usetting: { "date_id": "date", "person_id": "person", "meetinglength": 30 },
+      api_key:
+        'eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjkxMTI3MzU5LCJ1aWQiOjE3MDgxNjQ3LCJpYWQiOiIyMDIwLTExLTE3VDExOjIwOjE5LjAwMFoiLCJwZXIiOiJtZTp3cml0ZSJ9.KEIMj4SQhBnw6dIW9TwoL4g-LsowuDhNHa887tQIOpY',
+      setting: 'abc',
+      board_id: '',
+      limit: 500,
+    
+      async loadMonday() { },
+      async getDuration() {
+        console.log("SSSS__----" + Monday.usetting.meetinglength);
+        return Monday.usetting.meetinglength;
+      },
+    
+    
+    
+      changeSetting(res) {
+    
+        var person_id = Monday.usetting.person_id;
+        var date_id = Monday.usetting.date_id;
+        var meetinglength = Monday.usetting.meetinglength;
+        if (res.data.Meetinglength)
+          Monday.usetting.meetinglength = res.data.Meetinglength;
+    
+        if (Object.keys(res.data.Person)[0])
+          Monday.usetting.person_id = Object.keys(res.data.Person)[0];
+        if (Object.keys(res.data.Date)[0])
+          Monday.usetting.date_id = Object.keys(res.data.Date)[0];
+        //console.log("SSYYYYY"+Monday.usetting.meetinglength);
+        Monday.personColumnName = Monday.columnNames[Monday.usetting.person_id];
+        Monday.dateColumnName = Monday.columnNames[Monday.usetting.date_id];
+        //console.log("hhSSSppp"+Monday.usetting.meetinglength+"___"+res.data);
+        if (person_id != Monday.usetting.person_id || Monday.usetting.meetinglength != meetinglength || Monday.usetting.date_id != date_id) return 1;
+        return 0;
+      },
+      async initMonday() {
+    
+    
+        if (!Monday.initiated) {
+          console.log("initiatedHHHHHHH1");
+          var m = await Monday.init();
+          console.log("initiatedHHHHHHH2");
+          Monday.initiated = 1;
+          console.log("initiatedHHHHHHH");
+        }
+    
+    
+        Monday.personColumnName = Monday.columnNames[Monday.usetting.person_id];
+        Monday.dateColumnName = Monday.columnNames[Monday.usetting.date_id];
+      },
+      async filter(ar) {
+        let query =
+          'query {boards (ids: ' +
+          Monday.board_id +
+          ') { 	items (limit: ' +
+          Monday.limit +
+          ', ids:' + ar + ')  { id	name group { title id} column_values {	id	value type title	}	}	}}';
+        //let board_items = await mondayObj.api(query);
+        let board_items = await fetch('https://api.monday.com/v2', {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: Monday.api_key,
+          },
+          body: JSON.stringify({
+            query: query,
+          }),
+        });
+        board_items = await board_items.json();
+        Monday.board_items = board_items.data.boards[0].items;
+        console.log("Sultan" + Monday.board_items);
+      },
+      async sort(ar) {
+    
+      },
+      async init() {
+        var d = await Monday.loadGroups();
+        var a = await Monday.loadColumns();
+        var b = await Monday.loadAllUsers();
+        var aa = await Monday.loadAuthenticatedUsers();
+        var c = await Monday.loadAllBoardItems();
+    
+      },
+      //loads the group data that the user has on their board
+      async loadGroups() {
+    
+        let query = 'query { boards (ids: ' + Monday.board_id + ') { groups { id title color position }}}';
+        let groups = await mondayObj.api(query);
+        console.log('jjj' + JSON.stringify(groups.data.boards[0].groups) + 'iii');
+        groups = groups.data.boards[0].groups;
+    
+        for (var i = 0; i < groups.length; i++)
+          Monday.groupsObj[groups[i].id] = groups[i].color;
+        console.log('wwwwkkkk' + JSON.stringify(Monday.groupsObj) + 'iii');
+    
+      },
+      //loads the column data that the user as on their board
+      async loadColumns() {
+        let query = 'query {boards (ids: ' + Monday.board_id + ') {columns {id title type }}}';
+        //let columns = await mondayObj.api(query);
+        let columns = await fetch('https://api.monday.com/v2', {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: Monday.api_key,
+          },
+          body: JSON.stringify({
+            query: query,
+          }),
+        });
+    
+        columns = await columns.json();
+        columns = columns.data.boards[0].columns;
+        var len = columns.length;
+        for (var i = 0; i < len; i++)
+          Monday.columnNames[columns[i].id] = columns[i].title;
+      },
+      //loads the user data that the user as on their account
+      async loadAllUsers() {
+        let query = 'query {users (kind: all) {id photo_thumb phone name title email}}';
+        let users = await fetch('https://api.monday.com/v2', {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: Monday.api_key,
+          },
+          body: JSON.stringify({
+            query: query,
+          }),
+        });
+        users = await users.json();
+    
+        alert(JSON.stringify(users.data));
+        users = await users.json();
+        var ar = users.data.users;
+        for (var i = 0; i < ar.length; i++) {
+          var mod_1 = Math.floor(Math.random() * 2);
+          if (mod_1 === 0) ar[i]['auth'] = true;
+          else ar[i]['auth'] = false;
+    
+    
+          Monday.usersObj[ar[i]['id']] = Monday.usersObj[ar[i]['email']] = {
+            "Image": ar[i]['photo_thumb'],
+            "Name": ar[i]['name'],
+            "ApiKey": Monday.OurServerAPIKEY,
+            "Email": ar[i]['email']
+          }
+    
+          console.log('kkkk' + JSON.stringify(Monday.usersObj[ar[i]['id']]) + 'iii');
+        }
+        //var j2 = await Monday.loadAuthenticatedUsers();
+        console.log('jjj' + ar.length + JSON.stringify(ar) + 'iii');
+        Monday.allUsers = users.data;
+      },
+    
+      //to load the users that have been authenticated via our email system
+      async loadAuthenticatedUsers() {
+        Monday.authUsers = Object.assign({}, Monday.allUsers);
+        Monday.authUsers.users = [];
+        console.log('NNNN' + JSON.stringify(Monday.allUsers) + 'PPPP');
+        //Monday.allUsers.users[0]["email"] = "ehsan@symapp.org";
+        var email = "";
+        if (Monday.allUsers && Monday.allUsers.users && Monday.allUsers.users[0] && Monday.allUsers.users[0]["email"])
+          email = Monday.allUsers.users[0]["email"];
+        var obj = { "Email": email, "ApiKey": Monday.OurServerAPIKEY };
+        res = await fetch('https://symappapi.azurewebsites.net/api/Account/GetAllAuthenticatedUsers', {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: Monday.OurServerAPIKEY,
+          },
+          body: JSON.stringify(obj),
+        });
+        var res = await res.json();
+        console.log('555kkkk' + JSON.stringify(res) + 'iii7777' + JSON.stringify(obj));
+        var ar;
+    
+        //if no user is selected and the user tries to trigger the calendar	
+        if (res.isSuccess == false) {
+          console.log("We did not find any Authenticated user");
+          return 1;
+        }
+        var auth_users = {};
+        ar = res.data;
+        for (var i = 0; i < ar.length; i++) {
+          if (ar[i].email)
+            auth_users[ar[i].email.toLowerCase()] = 1;
+        }
+    
+        ar = Monday.allUsers.users;
+        var authUsers = Monday.authUsers.users = [];
+        var auth_ind = 0;
+        for (var i = 0; i < ar.length; i++) {
+    
+          //fills the array of authenticated users
+          if (ar[i].email && auth_users[ar[i].email.toLowerCase()]) {
+            ar[i]['auth'] = true;
+            authUsers[auth_ind++] = ar[i];
+          }
+          else ar[i]['auth'] = false;
+    
+          Monday.usersObj[ar[i]['id']] = Monday.usersObj[ar[i]['email']] = {
+            "Image": ar[i]['photo_thumb'],
+            "Name": ar[i]['name'],
+            "ApiKey": Monday.OurServerAPIKEY,
+            "Email": ar[i]['email']
+          }
+        }
+    
+        return res;
+      },
+    
+      //to invite a user on via email if they are not authenticated. The actually Google Calendar authentication email is sent out from the backend
+      async inviteUsers(objsAr) {
+    
+        var len = objsAr.length;
+        var newObj = {};
+        newObj["ApiKey"] = Monday.OurServerAPIKEY;
+        newObj["Users"] = [];
+        for (var i = 0; i < len; i++)
+          newObj["Users"][i] = Monday.usersObj[objsAr[i].id];
+    
+        console.log("GGGG" + JSON.stringify(newObj));
+        res = await fetch('https://symappapi.azurewebsites.net/api/Account/LoginWithGoogle', {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: Monday.OurServerAPIKEY,
+          },
+          body: JSON.stringify(newObj),
+        });
+        var res = await res.json();
+        console.log("MMM" + JSON.stringify(res));
+        if (res)
+          return res.isSuccess;
+        else return false;
+      },
+      async getAllUsers() {
+        return Monday.allUsers;
+      },
+    
+      async getAuthenticatedUsers() {
+        return Monday.authUsers;
+      },
+      async authenticateUsers(emails) {
+        alert(emails);
+      },
+      async loadAllBoardItems() {
+        let query =
+          'query {boards (ids: ' +
+          Monday.board_id +
+          ') { 	items (limit: ' +
+          Monday.limit +
+          ')  { id	name group { title id} column_values {	id	value type title	}	}	}}';
+        //let board_items = await mondayObj.api(query);
+        let board_items = await fetch('https://api.monday.com/v2', {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: Monday.api_key,
+          },
+          body: JSON.stringify({
+            query: query,
+          }),
+        });
+        board_items = await board_items.json();
+        Monday.board_items = board_items.data.boards[0].items;
+        Monday.all_board_items = board_items.data.boards[0].items;
+    
+    
+        console.log(JSON.stringify(Monday.board_items));
+      },
+    
+      async getAllBoardItems() {
+    
+        var obj = MondayUtility.makeBoardItems(Monday.board_items, Monday.allUsers, Monday.usetting, Monday.groupsObj);
+        console.log("getAllBoardItems called" + obj);
+        return obj;
+      },
+    
+      async getSpecificBoardItesm(item_id) {
+        let query =
+          'query {items(ids: [' +
+          item_id +
+          ']) {name group { title } column_values{id type text value}}}';
+        let item = await fetch('https://api.monday.com/v2', {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: Monday.api_key,
+          },
+          body: JSON.stringify({
+            query: query,
+          }),
+        });
+        console.log('SSSS' + JSON.stringify(item) + 'YYY');
+        return item.data.items[0];
+    
+      },
+    
+      async SaveColumns() {
+        return 555;
+      },
+    
+      async getColumns() {
+        return 555;
+      },
+    };
+    
+    export default Monday;
+        </code>
+        </pre>
+            Once the user selects whose calendar they want to view from the drop down, they can then click on any item to pull up the calendars of those selected users at the time specified by the monday.com item.
+          </p>
+
+          <div>
+            <div class="image1" style="text-align: center; padding-bottom: 10px;">
+              <img src="./assets/images/monday cal.png" class="img-responsive" alt="" >
+            </div>    
+            <p>
+              Once the user pulls up the calendar, they can select a time that is free and it will book for one or both of the users. The meeting time will then load on the monday.com item.
+              <br><br>
+              There are some authentication barriers with Google since not just anybody can view another person's calendar via their API, even if they are in each other's Gsuite. We had to authenticate all of our users with OAUTH, to do this we added the ability for existing users to send an email to new users which contains a link to authenticate.
+            </p>
+            <div class="image1" style="text-align: center; padding-bottom: 10px;">
+              <img src="./assets/images/monday authenticate.png" class="img-responsive" alt="" >
+            </div>  
+            
+        <p>
+          I did sell the IP to the code so I cannot post the rest of it here. If I can get permission, I will post the Google Calendar API code since along side the Monday.com API code, that is what I contributed the most to. 
+        </p>
+        </div>
+      </div>
+
+      
+
+    </div>
+  </div>
+</div>
+
+
+<footer class="footer-container text-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+      </div>
+    </div>
+  </div>
+  
+</footer>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function (event) {
+     navActivePage()});
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YRXLTPM8GD"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.0/prism.min.js"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YRXLTPM8GD');
+</script><script type="text/javascript" src="./main.70a66962.js"></script>
+
+
+</body>
+
+</html>
