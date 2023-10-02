@@ -5090,7 +5090,9 @@ a.badge:hover {
     bottom: 0;
     height: 100%;
     width: 100%;
-    border: 0
+    border: 0;
+    cursor: url('/assets/Group\ 633.svg')0 14 ,auto;
+
 }
 
 .embed-responsive-16by9 {
