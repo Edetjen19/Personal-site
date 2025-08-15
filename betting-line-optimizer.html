@@ -12,10 +12,10 @@
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.0/themes/prism.min.css"/>
 
-   <!-- OG tags -->
-   <meta property="og:title" content="Eric Detjen's Resume" />
-   <meta property="og:image" href="./assets/images/profil.jpg" />
-   <meta property="og:description" content= "Showcases my projects & resume. Built with Bootstrap HTML, JS, & CSS. Hosted on AWS S3."/>
+  <!-- OG tags -->
+  <meta property="og:title" content="Eric Detjen's Resume" />
+  <meta property="og:image" href="./assets/images/profil.jpg" />
+  <meta property="og:description" content="Showcases my projects & resume. Built with Bootstrap HTML, JS, & CSS. Hosted on AWS S3."/>
 
   <!-- Disable tap highlight on IE -->
   <meta name="msapplication-tap-highlight" content="no">
@@ -27,9 +27,9 @@
       white-space: normal;
        word-wrap: break-word;
     }
- </style>
+  </style>
 
-  <title>Eric Detjen:Betting Line Optimizer</title> 
+  <title>Eric Detjen: Betting Line Optimizer</title> 
   <link rel="icon" href="./assets/images/DETJEN.png">
 
 
@@ -81,7 +81,7 @@
       <div class="col-md-8 col-md-offset-2 section-container-spacer">
         <div class="row">
           
-          <p>I created this calculator while leading the development on the Devin’s Bookie(DBA) data analytics application. We have 6 different calculators on site, though this one is my favorite and required the most effort. On this page, I'll run you through how the calculator works, and a bit of the code that goes into it. <B>Unfortunately, I cannot share the bulk of the code for the calculations, since this is a live site and they are proprietary.</B>
+          <p>I created this calculator while leading the development on the Devin's Bookie (DBA) data analytics application. We have 6 different calculators on site, though this one is my favorite and required the most effort. On this page, I'll run you through how the calculator works, and a bit of the code that goes into it. <B>Unfortunately, I cannot share the bulk of the code for the calculations, since this is a live site and they are proprietary.</B>
            <br><br>
             The idea for it came from the fact that there is often a situation where a user wants to bet on a line that doesn't exist. For example, let's say a user wants to bet on a favorite spread at 
             -7(spread) but their sportsbook is only offering -7.5(spread) for -110(odds) and -6.5 for -140(odds). -7 is a key number in football because teams often win by a single touchdown. The user can pay
@@ -93,7 +93,7 @@
             <img src="./assets/images/-1line-example.png" class="img-responsive" alt="" >
           </div>
           <p>Here the user is instructed by our algorithm to risk $64.17 on the -7.5 line and $58.33 on the -6.5 line. By doing this they create a new line for the -7 spread with odds of -122.50. 
-            Meaning that if they bet the given bets for a combined $122.50,  they stand to make $100. 
+            Meaning that if they bet the given bets for a combined $122.50, they stand to make $100. 
             <br><br>
           The calculator also allows the user to customize their bet to fit many other situations. In addition to the spread option outlined above, we offer situations where users can bet Totals, Player Props, and Baseball or hockey -1 lines.
           </p>
@@ -106,7 +106,7 @@
               <br><br>
               Another feature that we allow across our entire site, is the ability to change the odds type between american, decimal, and fraction. For all of our algorithms, we do the calculations in decimal, so the odds will need to be converted to and from decimal. For this, I can show the code.
               <br><br>
-              We have a couple of functions that allow this…, fromUserTypeToDecimal() which converts the user's data to decimal, and toUserOddType() which is used after the calculations to convert back to their odds type. 
+              We have a couple of functions that allow this: fromUserTypeToDecimal() which converts the user's data to decimal, and toUserOddType() which is used after the calculations to convert back to their odds type. 
             </p>
 
             <pre><code class="language-javascript">
@@ -127,7 +127,7 @@
         </code>
         </pre>
         <p>
-          Then the functions that actually do the calculations, and throw errors if the odds type is not in the correct format(ie american odds must be < -100 or >= +100.
+          Then the functions that actually do the calculations, and throw errors if the odds type is not in the correct format (i.e., American odds must be < -100 or >= +100).
         </p>
         <pre><code class="language-javascript">
     function americanToDecimal(odds) {
@@ -197,7 +197,7 @@
           </code>
           </pre>
         <p>
-          We also have the check the bounds on each input box, there are many inputs that could be impossible so we want to alert the user of this to ensure they are entering the correct data.
+          We also have to check the bounds on each input box. There are many inputs that could be impossible, so we want to alert the user of this to ensure they are entering the correct data.
         </p>
         <pre><code class="language-javascript">
   // Pass in the target node, as well as the observer options.
@@ -223,7 +223,7 @@
     }
   };
   
-  //ensures the amount is greator than 0
+  //ensures the amount is greater than 0
   line_amount.addEventListener("input", (e) => {
     var amount = Number(e.target.value);
     if (amount < 0) {
@@ -423,7 +423,8 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function (event) {
-     navActivePage()});
+     navActivePage();
+  });
 </script>
 
 <!-- Google tag (gtag.js) -->
@@ -435,7 +436,8 @@
   gtag('js', new Date());
 
   gtag('config', 'G-YRXLTPM8GD');
-</script><script type="text/javascript" src="./main.70a66962.js"></script>
+</script>
+<script type="text/javascript" src="./main.70a66962.js"></script>
 
 
 </body>
